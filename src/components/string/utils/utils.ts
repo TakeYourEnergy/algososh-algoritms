@@ -12,7 +12,5 @@ export const reverseString = (str: string) => {
 		start += 1;
 		end -= 1;
 	}
-	return newStrArr.join('');
+	return newStrArr;
 };
-
-
