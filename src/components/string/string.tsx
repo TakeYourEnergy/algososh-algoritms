@@ -7,18 +7,20 @@ import { Circle } from '../ui/circle/circle';
 import { Input } from '../ui/input/input';
 import { SolutionLayout } from '../ui/solution-layout/solution-layout';
 import styles from './string.module.css';
-import { reverseString } from './utils/utils';
+import { stateSircle } from './utils/utils';
 
 export const StringComponent: React.FC = () => {
 	const [inputValue, setInputValue] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [arr, setArr] = useState<string[]>([]);
-	console.log(arr);
+	const [operation, setOperation] = useState<number>(0);
+	console.log('operation', operation);
 
 	const printReverseString = async () => {
-		const arrOfInput = inputValue.split('');
-
 		setIsLoading(true);
+		setOperation(0);
+
+		const arrOfInput = inputValue.split('');
 		setArr([...arrOfInput]); //чтобы на начльном экране появилось начальная строка
 		await animationDelay(500); //задержка показа начальной строки
 
@@ -28,9 +30,11 @@ export const StringComponent: React.FC = () => {
 			swap(arrOfInput, start, end);
 			start += 1;
 			end -= 1;
-			setArr([...arrOfInput]); //используя метод указателей перемещаем элементы
+			setOperation(prev => prev + 1); //количество операций алгоритма
+			setArr([...arrOfInput]); //используя метод указателей перемещаем элементы с задержкой
 			await animationDelay(1000);
 		}
+
 		setIsLoading(false);
 	};
 
@@ -59,8 +63,10 @@ export const StringComponent: React.FC = () => {
 			<div className={styles.circles}>
 				{arr.length === 0
 					? null
-					: arr.map(letter => {
-							return <Circle key={nanoid()} letter={letter} />;
+					: arr.map((letter, index, arr) => {
+							return (
+								<Circle key={nanoid()} letter={letter} state={stateSircle(index, operation, arr)} />
+							);
 					  })}
 			</div>
 		</SolutionLayout>

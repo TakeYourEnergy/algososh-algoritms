@@ -1,16 +1,11 @@
-import { swap } from '../../../utils/utils';
+import { ElementStates } from "../../../types/element-states";
 
-export const reverseString = (str: string) => {
-	const newStrArr: string[] = str.split('');
-
-	let start = 0;
-	let end = newStrArr.length - 1;
-
-	while (start < end) {
-		swap(newStrArr, start, end);
-
-		start += 1;
-		end -= 1;
+export const stateSircle = (index: number, operation: number, arr: Array<string>) => {
+	if (index < operation || index > arr.length - 1 - operation) {
+		return ElementStates.Modified;
 	}
-	return newStrArr;
+	if (index === operation || index === arr.length - 1 - operation) {
+		return ElementStates.Changing;
+	}
+	return ElementStates.Default;
 };
