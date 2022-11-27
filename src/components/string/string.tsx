@@ -1,6 +1,5 @@
 import { nanoid } from 'nanoid';
 import React, { useState } from 'react';
-import { ElementStates } from '../../types/element-states';
 import { animationDelay, swap } from '../../utils/utils';
 import { Button } from '../ui/button/button';
 import { Circle } from '../ui/circle/circle';
@@ -14,19 +13,18 @@ export const StringComponent: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [arr, setArr] = useState<string[]>([]);
 	const [operation, setOperation] = useState<number>(0);
-	console.log('operation', operation);
 
 	const printReverseString = async () => {
 		setIsLoading(true);
 		setOperation(0);
 
 		const arrOfInput = inputValue.split('');
-		setArr([...arrOfInput]); //чтобы на начльном экране появилось начальная строка
+		setArr([...arrOfInput]); //чтобы на начальном экране появилось начальная строка
 		await animationDelay(500); //задержка показа начальной строки
 
 		let start = 0;
 		let end = arrOfInput.length - 1;
-		while (start < end) {
+		while (start <= end) {
 			swap(arrOfInput, start, end);
 			start += 1;
 			end -= 1;
