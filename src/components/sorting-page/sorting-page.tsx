@@ -13,6 +13,7 @@ import { animationDelay } from '../../utils/utils';
 export const SortingPage: React.FC = () => {
 	const [isBubble, setIsBubble] = useState(false);
 	const [arrWithState, setArrWithState] = useState<TArrWithState[]>([]);
+	const [isDisabled, setDisabled] = useState<boolean>();
 
 	const handleClickNewArrWithState = () => {
 		setArrWithState(
@@ -22,8 +23,10 @@ export const SortingPage: React.FC = () => {
 		);
 	};
 
-	const selectionSort = async (inputArr: TArrWithState[], direction: string) => {
-		console.log('cicle', direction);
+	const selectionSort = async (
+		inputArr: TArrWithState[],
+		direction: 'desc' | 'asc',
+	): Promise<TArrWithState[]> => {
 		for (let i = 0; i < inputArr.length; i++) {
 			let min = i;
 			inputArr[min].state = ElementStates.Changing;
@@ -50,6 +53,42 @@ export const SortingPage: React.FC = () => {
 			}
 			setArrWithState([...inputArr]);
 		}
+		return inputArr;
+	};
+
+	const bubbleSort = async (
+		inputArr: TArrWithState[],
+		direction: 'desc' | 'asc',
+	): Promise<TArrWithState[]> => {
+		for (let i = 0; i < inputArr.length; i++) {
+			for (let j = 0; j < inputArr.length - i - 1; j++) {
+				inputArr[j].state = ElementStates.Changing;
+				if (inputArr[j + 1]) {
+					inputArr[j + 1].state = ElementStates.Changing;
+				}
+				setArrWithState([...inputArr]);
+				await animationDelay(200);
+				if (
+					direction === 'asc'
+						? inputArr[j].number > inputArr[j + 1].number
+						: inputArr[j].number < inputArr[j + 1].number
+				) {
+					[inputArr[j].number, inputArr[j + 1].number] = [
+						inputArr[j + 1].number,
+						inputArr[j].number,
+					];
+				}
+				inputArr[j].state = ElementStates.Default;
+				if (inputArr[j + 1]) {
+					inputArr[j + 1].state = ElementStates.Default;
+				}
+				inputArr[inputArr.length - i - 1].state = ElementStates.Modified;
+				setArrWithState([...inputArr]);
+			}
+			inputArr[inputArr.length - 1].state = ElementStates.Modified;
+			inputArr[0].state = ElementStates.Modified;
+			setArrWithState([...inputArr]);
+		}
 
 		return inputArr;
 	};
@@ -62,8 +101,14 @@ export const SortingPage: React.FC = () => {
 		setIsBubble(!isBubble);
 	};
 
-	const handleClickSort = async (direction: string): Promise<void> => {
-		setArrWithState(await selectionSort(arrWithState, direction));
+	const handleClickSort = async (direction: 'desc' | 'asc'): Promise<void> => {
+		setDisabled(true);
+		if (isBubble) {
+			setArrWithState(await bubbleSort(arrWithState, direction));
+		} else {
+			setArrWithState(await selectionSort(arrWithState, direction));
+		}
+		setDisabled(false);
 	};
 
 	return (
@@ -75,12 +120,14 @@ export const SortingPage: React.FC = () => {
 						checked={!isBubble}
 						onChange={handleChange}
 						value='select-sort'
+						disabled={isDisabled}
 					/>
 					<RadioInput
 						label='Пузырёк'
 						checked={isBubble}
 						onChange={handleChange}
 						value='bubble-sort'
+						disabled={isDisabled}
 					/>
 				</div>
 				<div className={styles.buttonsSort}>
@@ -89,18 +136,21 @@ export const SortingPage: React.FC = () => {
 						extraClass={styles.btnSize}
 						sorting={Direction.Ascending}
 						onClick={() => handleClickSort('asc')}
+						disabled={isDisabled}
 					/>
 					<Button
 						text='По убыванию'
 						extraClass={styles.btnSize}
 						sorting={Direction.Descending}
 						onClick={() => handleClickSort('desc')}
+						disabled={isDisabled}
 					/>
 				</div>
 				<Button
 					text='Новый массив'
 					extraClass={styles.btnSize}
 					onClick={handleClickNewArrWithState}
+					disabled={isDisabled}
 				/>
 			</form>
 			<div className={styles.columns}>
