@@ -1,0 +1,24 @@
+.form {
+	display: flex;
+	margin: 0 auto;
+	gap: 80px;
+	max-width: 870px;
+	width: 100%;
+}
+
+.inputWithAddAndDelete {
+	display: flex;
+	gap: 12px;
+}
+
+.input {
+	width: 377px;
+}
+
+.queue {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 16px;
+	margin-top: 80px;
+}
