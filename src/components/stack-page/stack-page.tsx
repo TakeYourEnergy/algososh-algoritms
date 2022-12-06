@@ -12,7 +12,6 @@ import { ElementStates } from '../../types/element-states';
 interface IIsDisabled {
 	addItem: boolean;
 	delItem: boolean;
-	clearItems: boolean;
 }
 
 export const StackPage: React.FC = () => {
@@ -22,7 +21,6 @@ export const StackPage: React.FC = () => {
 	const [isDisabled, setDisabled] = useState<IIsDisabled>({
 		addItem: false,
 		delItem: false,
-		clearItems: false,
 	});
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +99,6 @@ export const StackPage: React.FC = () => {
 				<Button
 					text='Очистить'
 					onClick={() => clearArr()}
-					isLoader={isDisabled.clearItems}
 					disabled={stack.getSize() < 1 || isDisabled.addItem || isDisabled.delItem}
 				/>
 			</form>
