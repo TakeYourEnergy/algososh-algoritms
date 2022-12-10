@@ -24,12 +24,13 @@
 }
 
 .form {
-	margin-bottom: 65px;
+	margin-bottom: 130px;
 }
 
 .list {
 	display: flex;
 	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .circles {
@@ -38,4 +39,18 @@
 	align-items: center;
 	gap: 25px;
 	margin-right: 21px;
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.smallTopCircle {
+	position: absolute;
+	top: -87px;
+	left: 12px;
+}
+
+.smallBottomCircle {
+	position: absolute;
+	top: 112px;
+	left: 12px;
 }

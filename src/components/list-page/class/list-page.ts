@@ -1,6 +1,3 @@
-import { generateRandomArr } from '../utils/utils';
-export const randomArr = generateRandomArr(4);
-
 //создание узла
 export class Node<T> {
 	value: T;
@@ -14,6 +11,8 @@ export class Node<T> {
 interface ILinkedList<T> {
 	append: (element: T) => void;
 	getSize: () => number;
+	prepend: (element: T) => void;
+	getArr: () => T[];
 }
 
 export class LinkedList<T> implements ILinkedList<T> {
@@ -42,9 +41,25 @@ export class LinkedList<T> implements ILinkedList<T> {
 		this.size++;
 	}
 
+	prepend(element: T): void {
+		const node = new Node(element, this.head);
+
+		this.head = node;
+		this.size++;
+	}
+
 	getSize() {
 		return this.size;
 	}
+
+	getArr() {
+		let curr = this.head;
+		let arr: T[] = [];
+		while (curr) {
+			arr.push(curr.value);
+			curr = curr.next;
+		}
+		return arr;
+	}
 }
 
-export const list = new LinkedList<string>(randomArr);
