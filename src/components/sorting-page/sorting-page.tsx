@@ -8,7 +8,7 @@ import { SolutionLayout } from '../ui/solution-layout/solution-layout';
 import styles from './sorting.module.css';
 import { generateRandomArr, maxLen, minLen, randomNumber, TArrWithState } from './utils/utils';
 import { nanoid } from 'nanoid';
-import { animationDelay } from '../../utils/utils';
+import { animationDelay, swap } from '../../utils/utils';
 
 export const SortingPage: React.FC = () => {
 	const [isBubble, setIsBubble] = useState(false);
@@ -47,7 +47,8 @@ export const SortingPage: React.FC = () => {
 			if (min !== i) {
 				inputArr[min].state = ElementStates.Modified;
 				inputArr[i].state = ElementStates.Default;
-				[inputArr[i], inputArr[min]] = [inputArr[min], inputArr[i]];
+				swap(inputArr, i, min);
+				// [inputArr[i], inputArr[min]] = [inputArr[min], inputArr[i]];
 			} else {
 				inputArr[i].state = ElementStates.Modified;
 			}

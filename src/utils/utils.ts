@@ -1,4 +1,4 @@
-export const swap = (strArr: string[], i: number, j: number) => {
+export const swap = <T>(strArr: T[], i: number, j: number): void => {
 	[strArr[i], strArr[j]] = [strArr[j], strArr[i]];
 };
 

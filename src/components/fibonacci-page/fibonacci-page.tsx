@@ -12,7 +12,6 @@ export const FibonacciPage: React.FC = () => {
 	const [inputValue, setInputValue] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [arrFibo, setArrFibo] = useState<string[]>([]);
-	console.log(inputValue);
 
 	const printFiboNumbers = async (n: string) => {
 		setIsLoading(true);

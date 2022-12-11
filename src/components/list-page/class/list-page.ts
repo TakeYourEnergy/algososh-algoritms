@@ -13,6 +13,10 @@ interface ILinkedList<T> {
 	getSize: () => number;
 	prepend: (element: T) => void;
 	getArr: () => T[];
+	deleteHead: () => void;
+	deleteTail: () => void;
+	addIndex: (element: T, position: number) => void;
+	deleteIndex: (position: number) => void;
 }
 
 export class LinkedList<T> implements ILinkedList<T> {
@@ -48,6 +52,71 @@ export class LinkedList<T> implements ILinkedList<T> {
 		this.size++;
 	}
 
+	deleteHead() {
+		if (this.head) {
+			this.head = this.head.next;
+			this.size--;
+		}
+	}
+
+	deleteTail() {
+		let current;
+		if (!this.head?.next) {
+			this.head = null;
+		} else {
+			current = this.head;
+			while (current.next?.next) {
+				current = current.next;
+			}
+			current.next = null;
+		}
+		this.size--;
+	}
+
+	addIndex(element: T, index: number) {
+		if (index < 0 || index > this.size) {
+			return;
+		}
+		if (!this.head || index <= 0) {
+			this.prepend(element);
+		} else if (index >= this.size - 1) {
+			this.append(element);
+		} else {
+			let current = this.head;
+			let currentIndex = 0;
+
+			while (currentIndex !== index - 1 && current.next) {
+				current = current.next;
+				currentIndex++;
+			}
+
+			const node = new Node(element, current.next);
+			current.next = node;
+			this.size++;
+		}
+	}
+
+	deleteIndex(index: number) {
+		if (index < 0 || index > this.size) {
+			return;
+		}
+		let current = this.head;
+		if (index === 0) {
+			if (this.head) this.head = this.head?.next;
+		} else {
+			let prev = null;
+			let currIndex = 0;
+			while (currIndex++ < index) {
+				prev = current;
+				if (current) {
+					current = current.next;
+				}
+			}
+			if (prev?.next) prev.next = current?.next ? current.next : null;
+		}
+		this.size--;
+	}
+
 	getSize() {
 		return this.size;
 	}
@@ -62,4 +131,3 @@ export class LinkedList<T> implements ILinkedList<T> {
 		return arr;
 	}
 }
-
