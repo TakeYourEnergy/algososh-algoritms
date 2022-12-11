@@ -1,0 +1,56 @@
+.input {
+	width: 204px;
+}
+
+.btnHeadAndTail {
+	width: 175px;
+}
+
+.btnIndex {
+	width: 362px;
+}
+
+.addDeleteHeadAndTail {
+	display: flex;
+	gap: 12px;
+	justify-content: center;
+	margin-bottom: 12px;
+}
+
+.addDeleteIndex {
+	display: flex;
+	gap: 12px;
+	justify-content: center;
+}
+
+.form {
+	margin-bottom: 130px;
+}
+
+.list {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.circles {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 25px;
+	margin-right: 21px;
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.smallTopCircle {
+	position: absolute;
+	top: -87px;
+	left: 12px;
+}
+
+.smallBottomCircle {
+	position: absolute;
+	top: 130px;
+	left: 12px;
+}

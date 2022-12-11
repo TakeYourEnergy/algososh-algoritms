@@ -1,0 +1,30 @@
+.form {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 90px;
+}
+
+.radioInput {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 40px;
+}
+
+.buttonsSort {
+	display: flex;
+	gap: 12px;
+}
+
+.btnSize {
+	width: 205px;
+}
+
+.columns {
+	margin-top: 48px;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	gap: 10px;
+}
